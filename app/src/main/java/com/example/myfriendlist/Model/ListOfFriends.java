@@ -9,18 +9,18 @@ public class ListOfFriends {
     public ListOfFriends()
     {
         friendList = new ArrayList<Friend>();
-        friendList.add(new Friend("Jimmi Kristensen", 27));
-        friendList.add(new Friend("Jesper Jacobsen", 27));
-        friendList.add(new Friend("Lars Schmidt", 24));
-        friendList.add(new Friend("Mads Huus", 25));
-        friendList.add(new Friend("Jonas Jacobsen", 25));
-        friendList.add(new Friend("Jesper Lund", 27));
-        friendList.add(new Friend("Nicolai Frandsen", 27));
-        friendList.add(new Friend("Simon Leth", 27));
-        friendList.add(new Friend("Nicklas Pus ", 26));
-        friendList.add(new Friend("Søren Vormisto ", 25));
-        friendList.add(new Friend("Frederik Tubæk", 21));
-        friendList.add(new Friend("Kent Pedersen", 29));
+        friendList.add(new Friend("Jimmi Kristensen", 27, 55.46506827982128, 8.707485440852793));
+        friendList.add(new Friend("Jesper Jacobsen", 27, 55.46506827982128, 8.707485440852793));
+        friendList.add(new Friend("Lars Schmidt", 24, 55.46506827982128, 8.707485440852793));
+        friendList.add(new Friend("Mads Huus", 25, 55.46506827982128, 8.707485440852793));
+        friendList.add(new Friend("Jonas Jacobsen", 25, 55.46506827982128, 8.707485440852793));
+        friendList.add(new Friend("Jesper Lund", 27, 55.46506827982128, 8.707485440852793));
+        friendList.add(new Friend("Nicolai Frandsen", 27, 55.46506827982128, 8.707485440852793));
+        friendList.add(new Friend("Simon Leth", 27, 55.46506827982128, 8.707485440852793));
+        friendList.add(new Friend("Nicklas Pus ", 26, 55.46506827982128, 8.707485440852793));
+        friendList.add(new Friend("Søren Vormisto ", 25, 55.46506827982128, 8.707485440852793));
+        friendList.add(new Friend("Frederik Tubæk", 21, 55.46506827982128, 8.707485440852793));
+        friendList.add(new Friend("Kent Pedersen", 29, 55.46506827982128, 8.707485440852793));
 
     }
 

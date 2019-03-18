@@ -14,6 +14,9 @@ import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.params.StreamConfigurationMap;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -43,13 +46,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements IViewCallBack {
     String TAG = MainActivity.TAG;
 
 
     private final static String LOGTAG = "Camtag";
     private final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     private static int CAMERA_REQUEST_CODE = 4;
+
+    LocationListener locLisenter;
+    LocationManager locManager;
 
     CameraDevice cameraDevice;
     CameraManager cameraManager;
@@ -67,7 +73,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
     TextView mFilename;
-
+    TextView txtDistance;
     EditText editName;
     EditText editAge;
     ImageView imageTaken;
@@ -93,15 +99,41 @@ public class DetailActivity extends AppCompatActivity {
         if(permissions.size() > 0)
             ActivityCompat.requestPermissions(this, permissions.toArray(new String[permissions.size()]), 1);
 
-
-        textureView = findViewById(R.id.textureView);
         imageTaken = findViewById(R.id.imageTaken);
-        mFilename = findViewById(R.id.fileName);
         editName = findViewById(R.id.editName);
+        txtDistance = findViewById(R.id.txtDistance);
         editAge = findViewById(R.id.editAge);
 
 
+
+        locManager =
+                (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         setGUI();
+        calcDistanceToFriend();
+
+
+
+
+    }
+
+    private void calcDistanceToFriend()  {
+        Location location = lastKnownLocation();
+
+        if(f.getLongitude() != 0 && f.getLongitude() != 0)
+        {
+            Location friendsLocation = new Location("Loc");
+            friendsLocation.setLatitude(f.getLatitude());
+            friendsLocation.setLongitude(f.getLongitude());
+
+            float distance = location.distanceTo(friendsLocation);
+
+            txtDistance.setText("Distance: " + distance + "m");
+        }
+
+        log("Friend doesn't have a home");
+
+
+
 
     }
 
@@ -216,13 +248,14 @@ public class DetailActivity extends AppCompatActivity {
 
         editName.setText(f.getName());
         editAge.setText("" + f.getAge());
-
         findViewById(R.id.enterCameraBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onTakePhotoButtonClicked();
             }
         });
+
+
 
 
         findViewById(R.id.callBtn).setOnClickListener(new View.OnClickListener() {
@@ -248,6 +281,57 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.homeBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setHomeLocation();
+            }
+        });
+
+    }
+
+    private void setHomeLocation() {
+
+        Location location = lastKnownLocation();
+
+        if(location == null)
+        {
+            Toast.makeText(getApplicationContext(), "Last known location is null",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+
+        f.setLatitude(latitude);
+        f.setLongitude(longitude);
+
+        Toast.makeText(getApplicationContext(), "Latitude" +f.getLatitude(),
+                Toast.LENGTH_LONG).show();
+
+        Toast.makeText(getApplicationContext(), "Longitude" +f.getLongitude(),
+                Toast.LENGTH_LONG).show();
+
+
+    }
+
+    private Location lastKnownLocation() {
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==
+                    PackageManager.PERMISSION_GRANTED) {
+                    log("Inde i loop");
+                return locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            }
+        }
+        else {
+                log("ude af loop");
+            return locManager
+                    .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        }
+        return null;
     }
 
 
@@ -256,4 +340,18 @@ public class DetailActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void setSpeed(double speed) {
+
+    }
+
+    @Override
+    public void setCurrentLocation(Location location) {
+
+    }
+
+    @Override
+    public void setCounter(int conut) {
+
+    }
 }
