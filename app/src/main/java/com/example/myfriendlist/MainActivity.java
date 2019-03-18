@@ -2,7 +2,6 @@ package com.example.myfriendlist;
 
 import android.app.ListActivity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +15,7 @@ import com.example.myfriendlist.Model.ListOfFriends;
 public class MainActivity extends ListActivity {
 
     public static String TAG = "Friend2";
+
 
 
 
