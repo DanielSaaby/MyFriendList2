@@ -1,21 +1,34 @@
 package com.example.myfriendlist.Model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Friend implements Serializable {
 
+    private int Id;
     private String Name;
-    private int Age;
-    private String ImgPath;
+    private String Address;
     private double Latitude;
     private double Longitude;
+    private int PhoneNumber;
+    private String EMail;
+    private String Website;
+    private String Birthday;
+    private String ImgPath;
 
 
-    public Friend(String name, int age, double latitude, double longitude) {
+
+    public Friend(int id, String name, String address, double latitude, double longitude, int phoneNumber, String eMail, String webSite, String birthday, String imgPath) {
+        Id = id;
         Name = name;
-        Age = age;
+        Address = address;
         Latitude = latitude;
         Longitude = longitude;
+        PhoneNumber = phoneNumber;
+        EMail = eMail;
+        Website = webSite;
+        Birthday = birthday;
+        ImgPath = imgPath;
 
     }
 
@@ -23,24 +36,16 @@ public class Friend implements Serializable {
         return Name;
     }
 
-    public int getAge() {
-        return Age;
-    }
-
-    public String getImgPath() {
-        return ImgPath;
-    }
-
-    public void setImgPath(String imgPath) {
-        this.ImgPath = imgPath;
-    }
-
     public void setName(String name) {
         Name = name;
     }
 
-    public void setAge(int age) {
-        Age = age;
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
     }
 
     public double getLatitude() {
@@ -48,7 +53,7 @@ public class Friend implements Serializable {
     }
 
     public void setLatitude(double latitude) {
-        this.Latitude = latitude;
+        Latitude = latitude;
     }
 
     public double getLongitude() {
@@ -56,6 +61,46 @@ public class Friend implements Serializable {
     }
 
     public void setLongitude(double longitude) {
-        this.Longitude = longitude;
+        Longitude = longitude;
+    }
+
+    public int getPhoneNumber() {
+        return PhoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        PhoneNumber = phoneNumber;
+    }
+
+    public String getEMail() {
+        return EMail;
+    }
+
+    public void setEMail(String EMail) {
+        this.EMail = EMail;
+    }
+
+    public String getWebsite() {
+        return Website;
+    }
+
+    public void setWebsite(String website) {
+        Website = website;
+    }
+
+    public String getBirthday() {
+        return Birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        Birthday = birthday;
+    }
+
+    public String getImgPath() {
+        return ImgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        ImgPath = imgPath;
     }
 }

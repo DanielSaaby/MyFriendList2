@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.example.myfriendlist.Interface.IDataAccess;
 import com.example.myfriendlist.Model.Friend;
 import com.example.myfriendlist.Model.ListOfFriends;
 
@@ -18,13 +19,14 @@ public class MainActivity extends ListActivity {
 
 
 
+    private IDataAccess mDataAccess;
 
     ListOfFriends listOfFriends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mDataAccess = DataAccessFactory.getInstance(this);
         this.setTitle("MyFriends");
         listOfFriends = new ListOfFriends();
 
