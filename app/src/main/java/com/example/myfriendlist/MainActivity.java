@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.example.myfriendlist.Interface.IDataAccess;
 import com.example.myfriendlist.Model.Friend;
 import com.example.myfriendlist.Model.ListOfFriends;
 

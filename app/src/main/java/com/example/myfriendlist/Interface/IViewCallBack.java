@@ -1,4 +1,4 @@
-package com.example.myfriendlist;
+package com.example.myfriendlist.Interface;
 
 import android.location.Location;
 
