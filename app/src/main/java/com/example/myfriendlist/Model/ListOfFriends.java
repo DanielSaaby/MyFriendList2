@@ -9,19 +9,19 @@ public class ListOfFriends {
     public ListOfFriends()
     {
         friendList = new ArrayList<Friend>();
-        friendList.add(new Friend("Jimmi Kristensen", 27, 55.46506827982128, 8.707485440852793));
-        friendList.add(new Friend("Jesper Jacobsen", 27, 55.46506827982128, 8.707485440852793));
-        friendList.add(new Friend("Lars Schmidt", 24, 55.46506827982128, 8.707485440852793));
-        friendList.add(new Friend("Mads Huus", 25, 55.46506827982128, 8.707485440852793));
-        friendList.add(new Friend("Jonas Jacobsen", 25, 55.46506827982128, 8.707485440852793));
-        friendList.add(new Friend("Jesper Lund", 27, 55.46506827982128, 8.707485440852793));
-        friendList.add(new Friend("Nicolai Frandsen", 27, 55.46506827982128, 8.707485440852793));
-        friendList.add(new Friend("Simon Leth", 27, 55.46506827982128, 8.707485440852793));
-        friendList.add(new Friend("Nicklas Pus ", 26, 55.46506827982128, 8.707485440852793));
-        friendList.add(new Friend("Søren Vormisto ", 25, 55.46506827982128, 8.707485440852793));
-        friendList.add(new Friend("Frederik Tubæk", 21, 55.46506827982128, 8.707485440852793));
-        friendList.add(new Friend("Kent Pedersen", 29, 55.46506827982128, 8.707485440852793));
-
+        friendList.add(new Friend("Jimmi Kristensen", "Aakjærsevej 11", 55.46506827982128, 8.707485440852793, 53834542, "jimmi.kk@live.dk", "https://www.facebook.com/jimmi.kristensen.98", "26011992", "" ));
+        friendList.add(new Friend("Jesper Jacobsen", "Aakjærsevej 11", 55.46506827982128, 8.707485440852793, 53834542, "jimmi.kk@live.dk", "https://www.facebook.com/jimmi.kristensen.98", "26011992", "" ));
+        friendList.add(new Friend("Lars Schmidt", "Aakjærsevej 11", 55.46506827982128, 8.707485440852793, 53834542, "jimmi.kk@live.dk", "https://www.facebook.com/jimmi.kristensen.98", "26011992", "" ));
+        friendList.add(new Friend("Mads Huus", "Aakjærsevej 11", 55.46506827982128, 8.707485440852793, 53834542, "jimmi.kk@live.dk", "https://www.facebook.com/jimmi.kristensen.98", "26011992", "" ));
+        friendList.add(new Friend("Jonas Jacobsen", "Aakjærsevej 11", 55.46506827982128, 8.707485440852793, 53834542, "jimmi.kk@live.dk", "https://www.facebook.com/jimmi.kristensen.98", "26011992", "" ));
+        friendList.add(new Friend("Jesper Lund", "Aakjærsevej 11", 55.46506827982128, 8.707485440852793, 53834542, "jimmi.kk@live.dk", "https://www.facebook.com/jimmi.kristensen.98", "26011992", "" ));
+        friendList.add(new Friend("Nicolai Frandsen", "Aakjærsevej 11", 55.46506827982128, 8.707485440852793, 53834542, "jimmi.kk@live.dk", "https://www.facebook.com/jimmi.kristensen.98", "26011992", "" ));
+        friendList.add(new Friend("Simon Leth", "Aakjærsevej 11", 55.46506827982128, 8.707485440852793, 53834542, "jimmi.kk@live.dk", "https://www.facebook.com/jimmi.kristensen.98", "26011992", "" ));
+        friendList.add(new Friend("Nicklas Pus ", "Aakjærsevej 11", 55.46506827982128, 8.707485440852793, 53834542, "jimmi.kk@live.dk", "https://www.facebook.com/jimmi.kristensen.98", "26011992", "" ));
+        friendList.add(new Friend("Søren Vormisto ", "Aakjærsevej 11", 55.46506827982128, 8.707485440852793, 53834542, "jimmi.kk@live.dk", "https://www.facebook.com/jimmi.kristensen.98", "26011992", "" ));
+        friendList.add(new Friend("Frederik Tubæk", "Aakjærsevej 11", 55.46506827982128, 8.707485440852793, 53834542, "jimmi.kk@live.dk", "https://www.facebook.com/jimmi.kristensen.98", "26011992", "" ));
+        friendList.add(new Friend("Kent Pedersen", "Aakjærsevej 11", 55.46506827982128, 8.707485440852793, 53834542, "jimmi.kk@live.dk", "https://www.facebook.com/jimmi.kristensen.98", "26011992", "" ));
+        friendList.add(new Friend("Daniel Rasmussen", "Aakjærsevej 11", 55.46506827982128, 8.707485440852793, 53834542, "jimmi.kk@live.dk", "https://www.facebook.com/jimmi.kristensen.98", "26011992", "" ));)
     }
 
     public ArrayList<Friend> getAll()

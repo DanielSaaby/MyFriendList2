@@ -43,21 +43,20 @@ public class SQLiteImpl implements IDataAccess {
     public List<Friend> readAll() {
         List<Friend> list = new ArrayList<>();
         Cursor cursor = mDatabase.query(TABLE_NAME,
-                new String[] { "id", "name", "address", "latitude", "longitude", "phoneNumber", "email", "website", "birthday", "imgPath" },
+                new String[] { "name", "address", "latitude", "longitude", "phoneNumber", "email", "website", "birthday", "imgPath" },
                 null, null, null, null, "name");
         if (cursor.moveToFirst()) {
             do {
                 list.add(new Friend(
-                        cursor.getInt(0),
+                        cursor.getString(0),
                         cursor.getString(1),
-                        cursor.getString(2),
+                        cursor.getDouble(2),
                         cursor.getDouble(3),
-                        cursor.getDouble(4),
-                        cursor.getInt(5),
+                        cursor.getInt(4),
+                        cursor.getString(5),
                         cursor.getString(6),
                         cursor.getString(7),
-                        cursor.getString(8),
-                        cursor.getString(9)
+                        cursor.getString(8)
                         ));
             } while (cursor.moveToNext());
         }
