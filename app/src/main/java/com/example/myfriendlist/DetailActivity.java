@@ -94,8 +94,7 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
 
 
 
-        locManager =
-                (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         setGUI();
         calcDistanceToFriend();
 

@@ -18,8 +18,8 @@ public class Friend implements Serializable {
 
 
 
-    public Friend(String name, String address, double latitude, double longitude, int phoneNumber, String eMail, String webSite, String birthday, String imgPath) {
-
+    public Friend(int id, String name, String address, double latitude, double longitude, int phoneNumber, String eMail, String webSite, String birthday, String imgPath) {
+        Id = id;
         Name = name;
         Address = address;
         Latitude = latitude;
@@ -29,8 +29,20 @@ public class Friend implements Serializable {
         Website = webSite;
         Birthday = birthday;
         ImgPath = imgPath;
-
     }
+
+    public Friend(String name, String address, double latitude, double longitude, int phoneNumber, String eMail, String webSite, String birthday, String imgPath) {
+        Name = name;
+        Address = address;
+        Latitude = latitude;
+        Longitude = longitude;
+        PhoneNumber = phoneNumber;
+        EMail = eMail;
+        Website = webSite;
+        Birthday = birthday;
+        ImgPath = imgPath;
+    }
+
 
     public String getName() {
         return Name;
