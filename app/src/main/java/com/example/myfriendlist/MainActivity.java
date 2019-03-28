@@ -18,14 +18,14 @@ public class MainActivity extends ListActivity {
 
 
 
-    private IDataAccess mDataAccess;
+
 
     ListOfFriends listOfFriends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDataAccess = DataAccessFactory.getInstance(this);
+
         this.setTitle("MyFriends");
         listOfFriends = new ListOfFriends();
 

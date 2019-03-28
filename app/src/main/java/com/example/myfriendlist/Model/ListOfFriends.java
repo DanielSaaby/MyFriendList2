@@ -16,7 +16,7 @@ public class ListOfFriends {
         friendList.add(new Friend("Jonas Jacobsen", "Østergade 20, 6920 Videbæk", 55.992228, 8.746349, 53834542, "jonas@live.dk", "https://www.facebook.com/jonas.b.jacobsen.3", "040694", "" ));
         friendList.add(new Friend("Jesper Lund", "Dalgasgade 31, 6920 Videbæk", 55.991807, 8.741780, 53834542, "jesperl@live.dk", "https://www.facebook.com/jesper.lund.39", "080692", "" ));
         friendList.add(new Friend("Nicolai Frandsen", "Hack kampmanns Pl. 6, 8000 Aarhus", 56.153392, 10.213583, 53834542, "nicolai@live.dk", "https://www.facebook.com/nicolai.t.frandsen", "031191", "" ));
-        friendList.add(new Friend("Simon Leth", "Skolegade 12, 7400 Herning", 56.153392, 10.213583, 53834542, "simon@live.dk", "https://www.facebook.com/simon.l.larsen", "250792", "" ));
+        friendList.add(new Friend("Simon Leth", "Skolegade 12, 7400 Herning", 56.153392, 10.213583, 91535541, "simon@live.dk", "https://www.facebook.com/simon.l.larsen", "250792", "" ));
         friendList.add(new Friend("Nicklas Søndergaard ", "Buen 1B, 6920 Videbæk", 55.990322, 8.743119, 28351517, "nicklas@live.dk", "https://www.facebook.com/nicklas.sondergaard?ref=br_rs", "190193", "" ));
         friendList.add(new Friend("Søren Vormisto ", "Kongevejen 37, 7430 Ikast", 56.136608, 9.152281, 53834542, "soren@live.dk", "https://www.facebook.com/vormistox", "040294", "" ));
         friendList.add(new Friend("Frederik Tubæk", "Englandsgade 35, 6700 Esbjerg",  55.467182, 8.455123, 50984278, "frederik@live.dk", "https://www.facebook.com/profile.php?id=1192789766", "150997", "" ));
