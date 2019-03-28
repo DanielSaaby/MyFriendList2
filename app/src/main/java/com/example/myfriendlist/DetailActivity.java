@@ -17,6 +17,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Size;
@@ -58,17 +59,19 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
 
     String phoneNumber = "26294128";
 
-
-
-    TextView mFilename;
     TextView txtDistance;
-    EditText editName;
-    EditText editAge;
     ImageView imageTaken;
 
     File mFile;
 
     Friend f;
+
+    TextView vName;
+    TextView vAddress;
+    TextView vPhoneNumber;
+    TextView vEmail;
+    TextView vWebsite;
+    TextView vBirthday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,27 +79,20 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         setContentView(R.layout.detail_activity);
         Log.d(TAG, "Detail Activity started");
 
-        ArrayList<String> permissions = new ArrayList<String>();
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-            permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-            permissions.add(Manifest.permission.CAMERA);
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-            permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
 
-        if(permissions.size() > 0)
-            ActivityCompat.requestPermissions(this, permissions.toArray(new String[permissions.size()]), 1);
 
-        imageTaken = findViewById(R.id.imageTaken);
-        editName = findViewById(R.id.editName);
-        txtDistance = findViewById(R.id.txtDistance);
-        editAge = findViewById(R.id.editAge);
+        vName = findViewById(R.id.vName);
+        vAddress = findViewById(R.id.vAddress);
+        vPhoneNumber = findViewById(R.id.vPhone);
+        vEmail = findViewById(R.id.vEmail);
+        vWebsite = findViewById(R.id.vWebsite);
+        vBirthday = findViewById(R.id.vBirthday);
 
 
 
         locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         setGUI();
-        calcDistanceToFriend();
+
 
 
 
@@ -124,10 +120,15 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
 
     }
 
+    private void OpenFacebookProfile() {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(f.getWebsite()));
+        startActivity(intent);
+    }
+
     private void SendEmail() {
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setType("plain/text");
-        String[] receivers = { "daniel@wefly4you.dk" };
+        String[] receivers = { f.getEMail() };
         emailIntent.putExtra(Intent.EXTRA_EMAIL, receivers);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Andriod Studio Course");
         emailIntent.putExtra(Intent.EXTRA_TEXT,
@@ -137,14 +138,14 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
 
     private void SendText() {
         Intent sendIntent = new Intent(Intent.ACTION_VIEW);
-        sendIntent.setData(Uri.parse("sms:" + phoneNumber));
+        sendIntent.setData(Uri.parse("sms:" + f.getPhoneNumber()));
         sendIntent.putExtra("sms_body", "Hi, it goes well on the android course...");
         startActivity(sendIntent);
     }
 
     private void MakeCall() {
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:" + phoneNumber));
+        intent.setData(Uri.parse("tel:" + f.getPhoneNumber()));
         startActivity(intent);
     }
 
@@ -229,11 +230,20 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
     private void setGUI() {
 
         f = (Friend) getIntent().getSerializableExtra("friend");
-        if (f.getImgPath() != null) {
+        /*if (f.getImgPath() != null) {
             this.imageTaken.setImageURI(Uri.parse(f.getImgPath()));
-        }
+        }*/
 
-        editName.setText(f.getName());
+
+
+        vName.setText(f.getName());
+        vAddress.setText(f.getAddress());
+        vPhoneNumber.setText("" + f.getPhoneNumber());
+        vEmail.setText(f.getEMail());
+        vBirthday.setText(f.getBirthday());
+
+
+
         findViewById(R.id.enterCameraBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -274,10 +284,20 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
             }
         });
 
+        findViewById(R.id.vWebsiteBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OpenFacebookProfile();
+            }
+        });
+
     }
 
     private void setHomeLocation() {
 
+        Intent intent = new Intent(DetailActivity.this, MapActivity.class);
+        startActivity(intent);
+        /*
         Location location = lastKnownLocation();
 
         if(location == null)
@@ -299,7 +319,7 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         Toast.makeText(getApplicationContext(), "Longitude" +f.getLongitude(),
                 Toast.LENGTH_LONG).show();
 
-
+*/
     }
 
     private Location lastKnownLocation() {

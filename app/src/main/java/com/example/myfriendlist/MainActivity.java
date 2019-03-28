@@ -39,7 +39,6 @@ public class MainActivity extends Activity {
     private IDataAccess mDateAccess;
 
 
-
     ListOfFriends listOfFriends;
     ArrayList<Friend> friends;
 
@@ -49,7 +48,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         final ListView friendList = this.findViewById(R.id.friendList);
         mDateAccess = DataAccessFactory.getInstance(this);
-
 
         this.setTitle("MyFriends");
         listOfFriends = new ListOfFriends();
