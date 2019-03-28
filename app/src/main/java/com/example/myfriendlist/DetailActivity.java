@@ -17,6 +17,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Size;
@@ -77,18 +78,6 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_activity);
         Log.d(TAG, "Detail Activity started");
-
-        ArrayList<String> permissions = new ArrayList<String>();
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-            permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-            permissions.add(Manifest.permission.CAMERA);
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-            permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
-
-        if(permissions.size() > 0)
-            ActivityCompat.requestPermissions(this, permissions.toArray(new String[permissions.size()]), 1);
-
 
 
 
@@ -307,6 +296,9 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
 
     private void setHomeLocation() {
 
+        Intent intent = new Intent(DetailActivity.this, MapActivity.class);
+        startActivity(intent);
+        /*
         Location location = lastKnownLocation();
 
         if(location == null)
@@ -328,7 +320,7 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         Toast.makeText(getApplicationContext(), "Longitude" +f.getLongitude(),
                 Toast.LENGTH_LONG).show();
 
-
+*/
     }
 
     private Location lastKnownLocation() {
