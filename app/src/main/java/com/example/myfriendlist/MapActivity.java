@@ -1,6 +1,7 @@
 package com.example.myfriendlist;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.myfriendlist.Model.Friend;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -30,7 +32,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
-
+    Friend f;
 
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
@@ -42,6 +44,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        f = (Friend) getIntent().getSerializableExtra("friend");
+
     }
 
     @Override
@@ -49,8 +54,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         mMap = googleMap;
 
         // Add a marker in Sydney, Australia, and move the camera.
-        LatLng home = new LatLng(-34, 151);
+        LatLng home = new LatLng(f.getLatitude(), f.getLongitude());
         mMap.addMarker(new MarkerOptions().position(home).title("HOME"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(home));
     }
+
+
 }

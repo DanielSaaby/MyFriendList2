@@ -1,11 +1,14 @@
 package com.example.myfriendlist;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -46,6 +49,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        checkPermissions();
         final ListView friendList = this.findViewById(R.id.friendList);
         mDateAccess = DataAccessFactory.getInstance(this);
 
@@ -142,7 +146,24 @@ public class MainActivity extends Activity {
 
 
 
+    /**
+     * Checks if the app has the required permissions, and prompts the user with the ones missing.
+     */
+    private void checkPermissions() {
+        ArrayList<String> permissions = new ArrayList<String>();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+            permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+            permissions.add(Manifest.permission.CAMERA);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED)
+            permissions.add(Manifest.permission.CALL_PHONE);
 
+
+        if (permissions.size() > 0)
+            ActivityCompat.requestPermissions(this, permissions.toArray(new String[permissions.size()]), 1);
+    }
 
 }
 

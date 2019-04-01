@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -66,10 +67,9 @@ public class AddFriendActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-
                 Name = InputName.getText().toString().trim();
                 Address = InputAddress.getText().toString().trim();
-                if(!isNullOrEmpty(InputLatitude.getText().toString()) && !isNullOrEmpty(InputLongitude.getText().toString()) && !isNullOrEmpty(InputPhonenumber.getText().toString())) {
+                if (!isNullOrEmpty(InputLatitude.getText().toString()) && !isNullOrEmpty(InputLongitude.getText().toString()) && !isNullOrEmpty(InputPhonenumber.getText().toString())) {
                     Latitude = Double.parseDouble(InputLatitude.getText().toString());
                     Longitude = Double.parseDouble(InputLongitude.getText().toString());
                     Phonenumber = Integer.parseInt(InputPhonenumber.getText().toString());
@@ -78,8 +78,7 @@ public class AddFriendActivity extends AppCompatActivity {
                 Website = InputWebsite.getText().toString();
                 Birthdate = InputBirthdate.getText().toString();
 
-                if(isValidFriend())
-                {
+                if (isValidFriend()) {
                     Friend f = new Friend(Name, Address, Latitude, Longitude, Phonenumber, Email, Website, Birthdate, "No Path");
 
                     mDateAccess.insert(f);
@@ -87,43 +86,45 @@ public class AddFriendActivity extends AppCompatActivity {
                 }
 
 
-
-
-
             }
         });
 
 
-
-
         setHomeLocation();
-
 
 
     }
 
     private boolean isValidFriend() {
 
-        if(!isNullOrEmpty(Name) && !isNullOrEmpty(Address) && Latitude > 0 && Longitude > 0 && Phonenumber > 0 && !isNullOrEmpty(Email) && !isNullOrEmpty(Website) && !isNullOrEmpty(Birthdate))
-        {
+        if (!isNullOrEmpty(Name) && !isNullOrEmpty(Address) && Latitude > 0 && Longitude > 0 && Phonenumber > 0 && !isNullOrEmpty(Email) && !isNullOrEmpty(Website) && !isNullOrEmpty(Birthdate)) {
             return true;
         } else {
             return false;
         }
 
 
-
     }
 
     public static boolean isNullOrEmpty(String str) {
-        if(str != null && !str.isEmpty())
+        if (str != null && !str.isEmpty())
             return false;
         return true;
     }
 
     private void setHomeLocation() {
 
-        Location location = lastKnownLocation();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
         if(location == null)
         {
@@ -141,19 +142,5 @@ public class AddFriendActivity extends AppCompatActivity {
 
     }
 
-    private Location lastKnownLocation() {
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==
-                    PackageManager.PERMISSION_GRANTED) {
-                return locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            }
-        }
-        else {
-            return locManager
-                    .getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-        }
-        return null;
-    }
 }

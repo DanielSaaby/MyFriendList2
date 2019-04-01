@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.example.myfriendlist.Interface.IViewCallBack;
 import com.example.myfriendlist.Model.Friend;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -80,7 +81,6 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         Log.d(TAG, "Detail Activity started");
 
 
-
         vName = findViewById(R.id.vName);
         vAddress = findViewById(R.id.vAddress);
         vPhoneNumber = findViewById(R.id.vPhone);
@@ -89,36 +89,14 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         vBirthday = findViewById(R.id.vBirthday);
 
 
-
         locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         setGUI();
 
 
-
-
-
     }
 
-    private void calcDistanceToFriend()  {
-        Location location = lastKnownLocation();
-
-        if(f.getLongitude() != 0 && f.getLongitude() != 0)
-        {
-            Location friendsLocation = new Location("Loc");
-            friendsLocation.setLatitude(f.getLatitude());
-            friendsLocation.setLongitude(f.getLongitude());
-
-            float distance = location.distanceTo(friendsLocation);
-
-            txtDistance.setText("Distance: " + distance + "m");
-        }
-
-        log("Friend doesn't have a home");
 
 
-
-
-    }
 
     private void OpenFacebookProfile() {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(f.getWebsite()));
@@ -128,7 +106,7 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
     private void SendEmail() {
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setType("plain/text");
-        String[] receivers = { f.getEMail() };
+        String[] receivers = {f.getEMail()};
         emailIntent.putExtra(Intent.EXTRA_EMAIL, receivers);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Andriod Studio Course");
         emailIntent.putExtra(Intent.EXTRA_TEXT,
@@ -151,7 +129,7 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
 
 
     /** Create a File for saving an image */
-    private File getOutputMediaFile(){
+    private File getOutputMediaFile() {
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), "Camera01");
 
@@ -174,7 +152,6 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
 
         return mediaFile;
     }
-
 
 
     public void onTakePhotoButtonClicked() {
@@ -211,8 +188,7 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
                 Log.d(LOGTAG, mFile.toString());
                 showPictureTaken(mFile);
                 f.setImgPath(mFile.getPath());
-            } else
-            if (resultCode == RESULT_CANCELED) {
+            } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Canceled...", Toast.LENGTH_LONG).show();
                 return;
 
@@ -235,13 +211,11 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         }*/
 
 
-
         vName.setText(f.getName());
         vAddress.setText(f.getAddress());
         vPhoneNumber.setText("" + f.getPhoneNumber());
         vEmail.setText(f.getEMail());
         vBirthday.setText(f.getBirthday());
-
 
 
         findViewById(R.id.enterCameraBtn).setOnClickListener(new View.OnClickListener() {
@@ -250,8 +224,6 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
                 onTakePhotoButtonClicked();
             }
         });
-
-
 
 
         findViewById(R.id.callBtn).setOnClickListener(new View.OnClickListener() {
@@ -267,7 +239,6 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
                 SendText();
             }
         });
-
 
 
         findViewById(R.id.emailBtn).setOnClickListener(new View.OnClickListener() {
@@ -295,50 +266,14 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
 
     private void setHomeLocation() {
 
+
         Intent intent = new Intent(DetailActivity.this, MapActivity.class);
+        intent.putExtra("friend", f);
         startActivity(intent);
-        /*
-        Location location = lastKnownLocation();
 
-        if(location == null)
-        {
-            Toast.makeText(getApplicationContext(), "Last known location is null",
-                    Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
-
-        f.setLatitude(latitude);
-        f.setLongitude(longitude);
-
-        Toast.makeText(getApplicationContext(), "Latitude" +f.getLatitude(),
-                Toast.LENGTH_LONG).show();
-
-        Toast.makeText(getApplicationContext(), "Longitude" +f.getLongitude(),
-                Toast.LENGTH_LONG).show();
-
-*/
     }
 
-    private Location lastKnownLocation() {
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==
-                    PackageManager.PERMISSION_GRANTED) {
-                    log("Inde i loop");
-                return locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            }
-        }
-        else {
-                log("ude af loop");
-            return locManager
-                    .getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-        }
-        return null;
-    }
 
 
     void log(String s) {
