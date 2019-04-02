@@ -83,6 +83,8 @@ public class AddFriendActivity extends AppCompatActivity {
 
                     mDateAccess.insert(f);
                     finish();
+                } else {
+                    Toast.makeText(v.getContext(), "Please fill all the required fields", Toast.LENGTH_LONG).show();
                 }
 
 
@@ -97,7 +99,7 @@ public class AddFriendActivity extends AppCompatActivity {
 
     private boolean isValidFriend() {
 
-        if (!isNullOrEmpty(Name) && !isNullOrEmpty(Address) && Latitude > 0 && Longitude > 0 && Phonenumber > 0 && !isNullOrEmpty(Email) && !isNullOrEmpty(Website) && !isNullOrEmpty(Birthdate)) {
+        if (!isNullOrEmpty(Name) && !isNullOrEmpty(Address) && Latitude > 0 && Longitude > 0 && Phonenumber > 0 && !isNullOrEmpty(Email) && !isNullOrEmpty(Birthdate)) {
             return true;
         } else {
             return false;

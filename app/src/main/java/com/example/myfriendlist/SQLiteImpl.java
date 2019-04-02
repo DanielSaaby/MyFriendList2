@@ -20,6 +20,7 @@ public class SQLiteImpl implements IDataAccess {
 	
 	private SQLiteDatabase mDatabase;
 	private SQLiteStatement insertStmt;
+	private SQLiteStatement updateStmt;
 
 
 
@@ -33,6 +34,11 @@ public class SQLiteImpl implements IDataAccess {
 				+ "(name, address, latitude, longitude, phonenumber, email, website, birthday, imgPath) VALUES (?,?,?,?,?,?,?,?,?)";
 
 		insertStmt = mDatabase.compileStatement(INSERT);
+
+		String UPDATE = "UPDATE " + TABLE_NAME + " SET name = ?, address = ? , latitude = ?, longitude = ?, phonenumber = ?, email = ?, website = ?, birthday = ?, imgPath = ? WHERE id = ?";
+		updateStmt = mDatabase.compileStatement(UPDATE);
+
+
 
 	}
 
@@ -75,6 +81,18 @@ public class SQLiteImpl implements IDataAccess {
 
 	@Override
 	public void update(Friend f) {
+		updateStmt.bindString(1, f.getName());
+		updateStmt.bindString(2, f.getAddress());
+		updateStmt.bindDouble(3, f.getLatitude());
+		updateStmt.bindDouble(4, f.getLongitude());
+		updateStmt.bindLong(5, f.getPhoneNumber());
+		updateStmt.bindString(6, f.getEMail());
+		updateStmt.bindString(7, f.getWebsite());
+		updateStmt.bindString(8, f.getBirthday());
+		updateStmt.bindString(9, f.getImgPath());
+		updateStmt.bindLong(10, f.getId());
+
+		updateStmt.execute();
 
 
 	}

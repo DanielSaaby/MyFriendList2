@@ -31,6 +31,8 @@ public class Friend implements Serializable {
         ImgPath = imgPath;
     }
 
+
+
     public Friend(String name, String address, double latitude, double longitude, int phoneNumber, String eMail, String webSite, String birthday, String imgPath) {
         Name = name;
         Address = address;
@@ -43,6 +45,9 @@ public class Friend implements Serializable {
         ImgPath = imgPath;
     }
 
+    public int getId() {
+        return Id;
+    }
 
     public String getName() {
         return Name;

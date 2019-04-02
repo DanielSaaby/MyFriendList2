@@ -21,6 +21,7 @@ import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Size;
+import android.view.Gravity;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myfriendlist.Interface.IDataAccess;
 import com.example.myfriendlist.Interface.IViewCallBack;
 import com.example.myfriendlist.Model.Friend;
 
@@ -42,25 +44,11 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
 
     private final static String LOGTAG = "Camtag";
     private final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-    private static int CAMERA_REQUEST_CODE = 4;
 
-    LocationListener locLisenter;
+    private IDataAccess mDateAccess;
+
     LocationManager locManager;
 
-    CameraDevice cameraDevice;
-    CameraManager cameraManager;
-    int cameraFacing;
-    String cameraId;
-    CameraCaptureSession cameraCaptureSession;
-
-    TextureView.SurfaceTextureListener surfaceTextureListener;
-    TextureView textureView;
-
-    private Size previewSize;
-
-    String phoneNumber = "26294128";
-
-    TextView txtDistance;
     ImageView imageTaken;
 
     File mFile;
@@ -79,6 +67,8 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_activity);
         Log.d(TAG, "Detail Activity started");
+        mDateAccess = DataAccessFactory.getInstance(this);
+
 
 
         vName = findViewById(R.id.vName);
@@ -88,19 +78,26 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         vWebsite = findViewById(R.id.vWebsite);
         vBirthday = findViewById(R.id.vBirthday);
 
+        imageTaken = findViewById(R.id.imageTaken);
+
 
         locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         setGUI();
-
-
     }
 
 
 
 
-    private void OpenFacebookProfile() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(f.getWebsite()));
-        startActivity(intent);
+    private void OpenWebsiteProfile() {
+        if(f.getWebsite() != null && !f.getWebsite().isEmpty()) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(f.getWebsite()));
+            startActivity(intent);
+        }
+        else {
+           Toast toast = Toast.makeText(this, "There is no Website available for this friend", Toast.LENGTH_LONG);
+           toast.setGravity(Gravity.CENTER, 0,0);
+           toast.show();
+        }
     }
 
     private void SendEmail() {
@@ -128,7 +125,6 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
     }
 
 
-    /** Create a File for saving an image */
     private File getOutputMediaFile() {
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), "Camera01");
@@ -152,7 +148,6 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
 
         return mediaFile;
     }
-
 
     public void onTakePhotoButtonClicked() {
         mFile = getOutputMediaFile(); // create a file to save the image
@@ -188,20 +183,17 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
                 Log.d(LOGTAG, mFile.toString());
                 showPictureTaken(mFile);
                 f.setImgPath(mFile.getPath());
+                mDateAccess.update(f);
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Canceled...", Toast.LENGTH_LONG).show();
                 return;
-
-            } else
-                Toast.makeText(this, "Picture NOT taken - unknown error...", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
     private void showPictureTaken(File f) {
         imageTaken.setImageURI(Uri.fromFile(f));
-        imageTaken.setBackgroundColor(Color.RED);
     }
-
 
     private void setGUI() {
 
@@ -210,13 +202,25 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
             this.imageTaken.setImageURI(Uri.parse(f.getImgPath()));
         }*/
 
-
         vName.setText(f.getName());
         vAddress.setText(f.getAddress());
         vPhoneNumber.setText("" + f.getPhoneNumber());
         vEmail.setText(f.getEMail());
-        vBirthday.setText(f.getBirthday());
+        if(f.getWebsite() != null && !f.getWebsite().isEmpty())
+        {
+            vWebsite.setText(f.getWebsite());
+        } else {
+            vWebsite.setText("No Website Available");
+        }
+        if(!f.getImgPath().isEmpty() && !f.getImgPath().equals("No Path"))
+        {
+            imageTaken.setImageURI(Uri.fromFile(new File(f.getImgPath())));
+        } else
+        {
+            imageTaken.setImageResource(R.drawable.placeholder);
+        }
 
+        vBirthday.setText(f.getBirthday());
 
         findViewById(R.id.enterCameraBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -258,28 +262,21 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         findViewById(R.id.vWebsiteBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OpenFacebookProfile();
+                OpenWebsiteProfile();
             }
         });
 
     }
 
     private void setHomeLocation() {
-
-
         Intent intent = new Intent(DetailActivity.this, MapActivity.class);
         intent.putExtra("friend", f);
         startActivity(intent);
-
     }
-
-
-
 
     void log(String s) {
         Log.d(LOGTAG, s);
     }
-
 
     @Override
     public void setSpeed(double speed) {

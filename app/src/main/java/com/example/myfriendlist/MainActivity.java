@@ -41,34 +41,34 @@ public class MainActivity extends Activity {
     private FriendAdapter fa;
     private IDataAccess mDateAccess;
 
+    private ListView friendList;
 
-    ListOfFriends listOfFriends;
+
     ArrayList<Friend> friends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        checkPermissions();
-        final ListView friendList = this.findViewById(R.id.friendList);
-        mDateAccess = DataAccessFactory.getInstance(this);
-
         this.setTitle("MyFriends");
-        listOfFriends = new ListOfFriends();
-        friends = mDateAccess.selectAll();
+
+        friendList = findViewById(R.id.friendList);
+
+        checkPermissions();
 
 
-        fa = new FriendAdapter(this, R.layout.activity_main_cell, friends);
-        friendList.setAdapter(fa);
+        mDateAccess = DataAccessFactory.getInstance(this);
+        setupListView();
+
+
 
         friendList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> adapter, View arg1, int position, long arg3) {
                 Intent x = new Intent(MainActivity.this, DetailActivity.class);
-                Log.d(TAG, "Detail activity will be started");
-                Friend friend = listOfFriends.getAll().get(position);
-                addData(x, friend);
+                Friend friend = friends.get(position);
+                x.putExtra("friend", friend);
                 startActivity(x);
-                Log.d(TAG, "Detail activity is started");            }
+            }
         });
 
 
@@ -80,9 +80,13 @@ public class MainActivity extends Activity {
                 startActivity(x);
             }
         });
+    }
 
+    private void setupListView() {
+        friends = mDateAccess.selectAll();
 
-
+        fa = new FriendAdapter(this, R.layout.activity_main_cell, friends);
+        friendList.setAdapter(fa);
     }
 
     private class FriendAdapter extends ArrayAdapter<Friend> {
@@ -137,13 +141,12 @@ public class MainActivity extends Activity {
 
     }
 
-    private void addData(Intent x, Friend f)
-    {
-        x.putExtra("friend", f);
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        setupListView();
     }
-
-
-
 
 
     /**
