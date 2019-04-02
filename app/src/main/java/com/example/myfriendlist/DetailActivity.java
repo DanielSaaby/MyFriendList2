@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.content.PermissionChecker;
@@ -265,6 +266,22 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
                 OpenWebsiteProfile();
             }
         });
+
+        findViewById(R.id.deleteBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "The DELETE function is not yet implemented", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        findViewById(R.id.editBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "The EDIT function is not yet implemented", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
 
     }
 
