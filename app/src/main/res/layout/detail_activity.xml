@@ -10,11 +10,11 @@
         android:id="@+id/enterCameraBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginEnd="149dp"
+        android:layout_marginBottom="51dp"
         android:text="Take Picture"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -36,35 +36,35 @@
         android:id="@+id/callBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginStart="66dp"
+        android:layout_marginBottom="8dp"
         android:drawableLeft="@drawable/ic_action_call"
         android:text="Call"
-        app:layout_constraintBottom_toTopOf="@+id/enterCameraBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/homeBtn" />
 
     <Button
         android:id="@+id/textBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="9dp"
         android:drawableLeft="@drawable/ic_action_message"
         android:text="Text"
-        app:layout_constraintBottom_toTopOf="@+id/enterCameraBtn"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/callBtn"
+        app:layout_constraintEnd_toStartOf="@+id/emailBtn"
+        app:layout_constraintStart_toEndOf="@+id/showBtn" />
 
     <Button
         android:id="@+id/emailBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="9dp"
         android:drawableLeft="@drawable/ic_action_email"
         android:text="E-mail"
-        app:layout_constraintBottom_toTopOf="@+id/enterCameraBtn"
+        app:layout_constraintBottom_toTopOf="@+id/vWebsiteBtn"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
@@ -72,9 +72,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="66dp"
         android:layout_marginBottom="8dp"
-        android:text="Home"
+        android:text="Show"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/callBtn"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -231,5 +233,15 @@
         app:backgroundTint="@android:color/holo_blue_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/showBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="10dp"
+        android:text="Home"
+        app:layout_constraintBottom_toTopOf="@+id/homeBtn"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

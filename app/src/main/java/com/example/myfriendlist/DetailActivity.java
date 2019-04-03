@@ -279,9 +279,16 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), "The EDIT function is not yet implemented", Toast.LENGTH_LONG).show();
             }
+
+
         });
 
+        findViewById(R.id.showBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
 
     }
 
