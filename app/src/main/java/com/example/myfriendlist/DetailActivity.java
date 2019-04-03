@@ -223,7 +223,7 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
 
         vBirthday.setText(f.getBirthday());
 
-        findViewById(R.id.enterCameraBtn).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.imageTaken).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onTakePhotoButtonClicked();

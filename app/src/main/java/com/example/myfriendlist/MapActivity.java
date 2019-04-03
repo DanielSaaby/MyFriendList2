@@ -59,7 +59,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         // Add a Home Marker from current friend
         LatLng home = new LatLng(f.getLatitude(), f.getLongitude());
-        mMap.addMarker(new MarkerOptions().position(home).title("HOME"));
+        mMap.addMarker(new MarkerOptions().position(home).title("HOME" + f.getName()));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(home));
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
