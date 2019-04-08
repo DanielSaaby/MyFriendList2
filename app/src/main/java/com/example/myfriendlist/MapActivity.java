@@ -30,15 +30,9 @@ import static android.location.LocationManager.GPS_PROVIDER;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private static final LatLng BRISBANE = new LatLng(-27.47093, 153.0235);
-    private Marker mBrisbane;
     private static final String TAG = "MapActivity";
     private LocationManager locManager;
-    private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
-    private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     Friend f;
-    private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
 
     @Override
