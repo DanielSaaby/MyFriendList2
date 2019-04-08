@@ -1,6 +1,7 @@
 package com.example.myfriendlist;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -45,6 +46,7 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
 
     private final static String LOGTAG = "Camtag";
     private final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+    private final static int UPDATED_FRIEND_REQUEST_CODE = 101;
 
     private IDataAccess mDateAccess;
 
@@ -207,21 +209,36 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                Log.d(LOGTAG, mFile.toString());
-                showPictureTaken(mFile);
-                f.setImgPath(mFile.getPath());
-                mDateAccess.update(f);
-            } else if (resultCode == RESULT_CANCELED) {
+
+        switch (requestCode)
+        {
+
+            case(CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) : {
+                if (resultCode == RESULT_OK) {
+                    Log.d(LOGTAG, mFile.toString());
+                    showPictureTaken(mFile);
+                    f.setImgPath(mFile.getPath());
+                    mDateAccess.update(f);
+            } else if (resultCode == RESULT_CANCELED)
+            {
                 Toast.makeText(this, "Canceled...", Toast.LENGTH_LONG).show();
                 return;
+            }
+            }
+
+            case (UPDATED_FRIEND_REQUEST_CODE) : {
+                if(resultCode == 101) {
+                    f = (Friend)data.getExtras().getSerializable("friend");
+                    mDateAccess.update(f);
+                    Toast.makeText(this, f.getName() + f.getAddress(), Toast.LENGTH_LONG).show();
+                    setGUI();
+                }
             }
         }
     }
 
     /**
-     * Sets the picture taken based on file F
+     * Sets current image for the user image based on input file.
      * @param f
      */
     private void showPictureTaken(File f) {
@@ -309,10 +326,10 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         findViewById(R.id.editBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "The EDIT function is not yet implemented", Toast.LENGTH_LONG).show();
-
                 Intent intent = new Intent(DetailActivity.this, EditActivity.class);
-                //start activity with result Editactivity
+                intent.putExtra("friend", f);
+
+                startActivityForResult(intent, 101);
             }
 
 
@@ -354,4 +371,5 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
     public void setCounter(int conut) {
 
     }
+
 }
