@@ -11,6 +11,8 @@ public interface IDataAccess {
 
     void deleteAll();
 
+    void deleteById(int id);
+
     ArrayList<Friend> selectAll();
 
     void update(Friend p);

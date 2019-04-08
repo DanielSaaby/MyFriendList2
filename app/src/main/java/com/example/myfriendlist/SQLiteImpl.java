@@ -21,6 +21,8 @@ public class SQLiteImpl implements IDataAccess {
 	private SQLiteDatabase mDatabase;
 	private SQLiteStatement insertStmt;
 	private SQLiteStatement updateStmt;
+	private SQLiteStatement deleteStmt;
+
 
 
 
@@ -37,6 +39,10 @@ public class SQLiteImpl implements IDataAccess {
 
 		String UPDATE = "UPDATE " + TABLE_NAME + " SET name = ?, address = ? , latitude = ?, longitude = ?, phonenumber = ?, email = ?, website = ?, birthday = ?, imgPath = ? WHERE id = ?";
 		updateStmt = mDatabase.compileStatement(UPDATE);
+
+		String DELETE = "DELETE FROM " + TABLE_NAME + " WHERE id = ?";
+		deleteStmt = mDatabase.compileStatement(DELETE);
+
 
 
 
@@ -61,6 +67,12 @@ public class SQLiteImpl implements IDataAccess {
 	public void deleteAll()
 	{
 		mDatabase.delete(TABLE_NAME, null, null);
+	}
+
+	@Override
+	public void deleteById(int id) {
+		deleteStmt.bindLong(1, id);
+		deleteStmt.execute();
 	}
 
 	@Override

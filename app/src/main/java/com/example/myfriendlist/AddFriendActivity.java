@@ -1,8 +1,11 @@
 package com.example.myfriendlist;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.provider.ContactsContract;
@@ -11,18 +14,23 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.myfriendlist.Interface.IDataAccess;
 import com.example.myfriendlist.Model.Friend;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class AddFriendActivity extends AppCompatActivity {
 
     private IDataAccess mDateAccess;
     private LocationManager locManager;
-
-
+    final Calendar myCalendar = Calendar.getInstance();
+    
     EditText InputName;
     EditText InputAddress;
     EditText InputLatitude;
@@ -47,6 +55,20 @@ public class AddFriendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friend);
 
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+
 
         InputName = findViewById(R.id.inpName);
         InputAddress = findViewById(R.id.inpAddress);
@@ -59,6 +81,16 @@ public class AddFriendActivity extends AppCompatActivity {
 
         mDateAccess = DataAccessFactory.getInstance(this);
         locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        InputBirthdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(v.getContext(), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
+            }
+        });
 
 
         FloatingActionButton btnAdd = findViewById(R.id.btnAdd);
@@ -95,6 +127,13 @@ public class AddFriendActivity extends AppCompatActivity {
         setHomeLocation();
 
 
+    }
+
+    private void updateLabel() {
+        String myFormat = "yyyy/MM/dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
+
+        InputBirthdate.setText(sdf.format(myCalendar.getTime()));
     }
 
     private boolean isValidFriend() {

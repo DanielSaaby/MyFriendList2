@@ -31,6 +31,10 @@ import com.example.myfriendlist.Model.ListOfFriends;
 import org.w3c.dom.Text;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.MonthDay;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,8 +124,6 @@ public class MainActivity extends Activity {
 
             ImageView thumbnail = v.findViewById(R.id.imgThumnail);
 
-
-
             txtName.setText(friend.getName());
             txtAddress.setText(friend.getAddress());
 
@@ -132,8 +134,6 @@ public class MainActivity extends Activity {
             {
                 thumbnail.setImageResource(R.drawable.placeholder);
             }
-
-
             return v;
         }
 

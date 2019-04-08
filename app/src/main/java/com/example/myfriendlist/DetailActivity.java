@@ -231,6 +231,7 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         });
 
 
+
         findViewById(R.id.callBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -270,7 +271,8 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         findViewById(R.id.deleteBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "The DELETE function is not yet implemented", Toast.LENGTH_LONG).show();
+                mDateAccess.deleteById(f.getId());
+                finish();
             }
         });
 
