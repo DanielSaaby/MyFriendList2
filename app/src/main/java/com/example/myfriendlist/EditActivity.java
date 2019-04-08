@@ -70,6 +70,9 @@ public class EditActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Updates a specific friend
+     */
     private void updateFriend() {
 
         Name = InputName.getText().toString().trim();
@@ -96,6 +99,9 @@ public class EditActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Sets up initial info for a friend edit
+     */
     private void initInfoSetup() {
         InputName.setText(f.getName());
         InputAddress.setText(f.getAddress());
@@ -107,6 +113,10 @@ public class EditActivity extends AppCompatActivity {
         InputBirthdate.setText(f.getBirthday());
     }
 
+    /**
+     * checks if a given friend is valid
+     * @return
+     */
     private boolean isValidFriend() {
 
         if (!isNullOrEmpty(Name) && !isNullOrEmpty(Address) && Latitude > 0 && Longitude > 0 && Phonenumber > 0 && !isNullOrEmpty(Email) && !isNullOrEmpty(Birthdate)) {

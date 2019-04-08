@@ -50,6 +50,9 @@ public class SQLiteImpl implements IDataAccess {
 	}
 
 	@Override
+	/**
+	 * Insert friend into database
+	 */
 	public long insert(Friend f) {
 		insertStmt.bindString(1, f.getName());
 		insertStmt.bindString(2, f.getAddress());
@@ -65,18 +68,27 @@ public class SQLiteImpl implements IDataAccess {
 	}
 
 	@Override
+	/**
+	 * Deletes all friends from the database
+	 */
 	public void deleteAll()
 	{
 		mDatabase.delete(TABLE_NAME, null, null);
 	}
 
 	@Override
+	/**
+	 * Deletes a specfic friend with the requested ID
+	 */
 	public void deleteById(int id) {
 		deleteStmt.bindLong(1, id);
 		deleteStmt.execute();
 	}
 
 	@Override
+	/**
+	 * Selects all friends from the Database
+	 */
 	public ArrayList<Friend> selectAll() {
 		ArrayList<Friend> friendList = new ArrayList<>();
 		Cursor cursor = mDatabase.query(TABLE_NAME, new String[] { "id", "name", "address", "latitude", "longitude", "phonenumber", "email", "website", "birthday", "imgPath"}, null, null, null, null, "null");
@@ -93,6 +105,9 @@ public class SQLiteImpl implements IDataAccess {
 	}
 
 	@Override
+	/**
+	 * Updates a friend in the database
+	 */
 	public void update(Friend f) {
 		updateStmt.bindString(1, f.getName());
 		updateStmt.bindString(2, f.getAddress());
