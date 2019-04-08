@@ -87,8 +87,9 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
     }
 
 
-
-
+    /**
+     * Opens the website of the current friend
+     */
     private void OpenWebsiteProfile() {
         if(f.getWebsite() != null && !f.getWebsite().isEmpty()) {
 
@@ -111,6 +112,9 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         }
     }
 
+    /**
+     * Opens the phones default Email browser with info on current friend
+     */
     private void SendEmail() {
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setType("plain/text");
@@ -122,6 +126,9 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         startActivity(emailIntent);
     }
 
+    /**
+     * Opens the phones default SMS browser with info from current friend
+     */
     private void SendText() {
         Intent sendIntent = new Intent(Intent.ACTION_VIEW);
         sendIntent.setData(Uri.parse("sms:" + f.getPhoneNumber()));
@@ -129,13 +136,19 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         startActivity(sendIntent);
     }
 
+    /**
+     * Opens the phones default call interface
+     */
     private void MakeCall() {
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + f.getPhoneNumber()));
         startActivity(intent);
     }
 
-
+    /**
+     * Gets the media file from local storage or creates one if it does not exist
+     * @return
+     */
     private File getOutputMediaFile() {
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), "Camera01");
@@ -160,6 +173,9 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         return mediaFile;
     }
 
+    /**
+     * Opens the phones camera app
+     */
     public void onTakePhotoButtonClicked() {
         mFile = getOutputMediaFile(); // create a file to save the image
         Log.d(LOGTAG, mFile.toString());
@@ -206,6 +222,9 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         imageTaken.setImageURI(Uri.fromFile(f));
     }
 
+    /**
+     * Sets the UI of the application on creation
+     */
     private void setGUI() {
 
         f = (Friend) getIntent().getSerializableExtra("friend");
@@ -304,6 +323,9 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
 
     }
 
+    /**
+     * Sets the Home Location of the friend
+     */
     private void setHomeLocation() {
         Intent intent = new Intent(DetailActivity.this, MapActivity.class);
         intent.putExtra("friend", f);
