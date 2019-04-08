@@ -91,7 +91,17 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
 
     private void OpenWebsiteProfile() {
         if(f.getWebsite() != null && !f.getWebsite().isEmpty()) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(f.getWebsite()));
+
+            String url = f.getWebsite();
+            Uri webpage;
+
+            if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                webpage = Uri.parse("http://" + url);
+            } else {
+                webpage = Uri.parse(url);
+            }
+
+            Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
             startActivity(intent);
         }
         else {
