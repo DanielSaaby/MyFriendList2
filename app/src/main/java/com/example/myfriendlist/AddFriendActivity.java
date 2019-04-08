@@ -129,6 +129,9 @@ public class AddFriendActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Updates the label to show birthday
+     */
     private void updateLabel() {
         String myFormat = "yyyy/MM/dd";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
@@ -136,6 +139,10 @@ public class AddFriendActivity extends AppCompatActivity {
         InputBirthdate.setText(sdf.format(myCalendar.getTime()));
     }
 
+    /**
+     * Checks of the friend is valid
+     * @return
+     */
     private boolean isValidFriend() {
 
         if (!isNullOrEmpty(Name) && !isNullOrEmpty(Address) && Latitude > 0 && Longitude > 0 && Phonenumber > 0 && !isNullOrEmpty(Email) && !isNullOrEmpty(Birthdate)) {
@@ -153,6 +160,9 @@ public class AddFriendActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Sets the home location of the user based on GPS coordinates
+     */
     private void setHomeLocation() {
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

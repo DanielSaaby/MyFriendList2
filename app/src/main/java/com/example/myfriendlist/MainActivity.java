@@ -86,6 +86,9 @@ public class MainActivity extends Activity {
         });
     }
 
+    /**
+     * Sets up the list view of friends
+     */
     private void setupListView() {
         friends = mDateAccess.selectAll();
 
