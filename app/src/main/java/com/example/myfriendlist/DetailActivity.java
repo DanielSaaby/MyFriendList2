@@ -312,7 +312,7 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
                 Toast.makeText(v.getContext(), "The EDIT function is not yet implemented", Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(DetailActivity.this, EditActivity.class);
-                intent.putExtra();
+                //start activity with result Editactivity
             }
 
 
