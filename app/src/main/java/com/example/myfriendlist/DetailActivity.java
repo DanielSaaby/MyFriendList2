@@ -70,6 +70,8 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         Log.d(TAG, "Detail Activity started");
         mDateAccess = DataAccessFactory.getInstance(this);
 
+        f = (Friend) getIntent().getSerializableExtra("friend");
+
 
 
         vName = findViewById(R.id.vName);
@@ -208,11 +210,6 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
 
     private void setGUI() {
 
-        f = (Friend) getIntent().getSerializableExtra("friend");
-        /*if (f.getImgPath() != null) {
-            this.imageTaken.setImageURI(Uri.parse(f.getImgPath()));
-        }*/
-
         vName.setText(f.getName());
         vAddress.setText(f.getAddress());
         vPhoneNumber.setText("" + f.getPhoneNumber());
@@ -290,6 +287,9 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), "The EDIT function is not yet implemented", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(DetailActivity.this, EditActivity.class);
+                intent.putExtra();
             }
 
 
