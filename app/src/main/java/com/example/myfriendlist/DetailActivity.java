@@ -218,6 +218,10 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         }
     }
 
+    /**
+     * Sets the picture taken based on file F
+     * @param f
+     */
     private void showPictureTaken(File f) {
         imageTaken.setImageURI(Uri.fromFile(f));
     }
