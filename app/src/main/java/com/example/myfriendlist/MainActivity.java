@@ -2,43 +2,37 @@ package com.example.myfriendlist;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.example.myfriendlist.Interface.IDataAccess;
 import com.example.myfriendlist.Model.Friend;
-import com.example.myfriendlist.Model.ListOfFriends;
 
-import org.w3c.dom.Text;
 
 import java.io.File;
-import java.time.LocalDate;
-import java.time.MonthDay;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends Activity {
+public class MainActivity extends  AppCompatActivity {
 
     public static String TAG = "Friend2";
 
@@ -76,15 +70,32 @@ public class MainActivity extends Activity {
         });
 
 
-        Button btnAddFriend = findViewById(R.id.btnAddFriend);
-        btnAddFriend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.itemAddFriend:
                 Intent x = new Intent(MainActivity.this, AddFriendActivity.class);
                 startActivity(x);
-            }
-        });
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
+
+
+
 
     /**
      * Sets up the list view of friends

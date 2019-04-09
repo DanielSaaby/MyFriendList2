@@ -87,7 +87,7 @@ public class EditActivity extends AppCompatActivity {
         Birthdate = InputBirthdate.getText().toString();
 
         if (isValidFriend()) {
-            updatedFriend = new Friend(Name, Address, Latitude, Longitude, Phonenumber, Email, Website, Birthdate, f.getImgPath());
+            updatedFriend = new Friend(f.getId(),Name, Address, Latitude, Longitude, Phonenumber, Email, Website, Birthdate, f.getImgPath());
 
             Intent intent = new Intent();
             intent.putExtra("friend", updatedFriend);
