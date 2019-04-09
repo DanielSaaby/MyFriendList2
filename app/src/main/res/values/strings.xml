@@ -1,5 +1,5 @@
 <resources>
-
     <string name="app_name">MyFriendList</string>
     <string name="google_maps_api_key">AIzaSyAq-XRBcTftns3h_NXfH7yWq1laXAUIEnM</string>
+    <string name="noFriends">Looks like you have no Friends yet. Click on the add icon to start adding new Friends</string>
 </resources>

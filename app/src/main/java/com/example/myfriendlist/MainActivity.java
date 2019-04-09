@@ -5,7 +5,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -23,12 +27,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 
+import com.bumptech.glide.Glide;
 import com.example.myfriendlist.Interface.IDataAccess;
 import com.example.myfriendlist.Model.Friend;
 
 
 import java.io.File;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +49,7 @@ public class MainActivity extends  AppCompatActivity {
 
 
     ArrayList<Friend> friends;
+    TextView noFriends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +58,8 @@ public class MainActivity extends  AppCompatActivity {
         this.setTitle("MyFriends");
 
         friendList = findViewById(R.id.friendList);
+        noFriends = findViewById(R.id.txtNoFriends);
+        noFriends.setVisibility(View.INVISIBLE);
 
         checkPermissions();
 
@@ -103,6 +112,12 @@ public class MainActivity extends  AppCompatActivity {
     private void setupListView() {
         friends = mDateAccess.selectAll();
 
+        if(friends.isEmpty()) {
+            noFriends.setVisibility(View.VISIBLE);
+        } else {
+            noFriends.setVisibility(View.INVISIBLE);
+        }
+
         fa = new FriendAdapter(this, R.layout.activity_main_cell, friends);
         friendList.setAdapter(fa);
     }
@@ -143,16 +158,13 @@ public class MainActivity extends  AppCompatActivity {
 
             if(!friend.getImgPath().isEmpty() && !friend.getImgPath().equals("No Path"))
             {
-                thumbnail.setImageURI(Uri.fromFile(new File(friend.getImgPath())));
+                Glide.with(v).load(friend.getImgPath()).into(thumbnail);
             } else
             {
                 thumbnail.setImageResource(R.drawable.placeholder);
             }
             return v;
         }
-
-
-
     }
 
 
@@ -181,6 +193,7 @@ public class MainActivity extends  AppCompatActivity {
         if (permissions.size() > 0)
             ActivityCompat.requestPermissions(this, permissions.toArray(new String[permissions.size()]), 1);
     }
+
 
 }
 
