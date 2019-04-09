@@ -230,7 +230,6 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
                 if(resultCode == 101) {
                     f = (Friend)data.getExtras().getSerializable("friend");
                     mDateAccess.update(f);
-                    Toast.makeText(this, f.getName() + f.getAddress(), Toast.LENGTH_LONG).show();
                     setGUI();
                 }
             }
