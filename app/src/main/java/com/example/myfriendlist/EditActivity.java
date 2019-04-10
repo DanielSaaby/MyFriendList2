@@ -128,6 +128,11 @@ public class EditActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Checks if the given string is either null or empty
+     * @param str
+     * @return
+     */
     public static boolean isNullOrEmpty(String str) {
         if (str != null && !str.isEmpty())
             return false;

@@ -352,6 +352,10 @@ public class DetailActivity extends AppCompatActivity implements IViewCallBack {
         startActivity(intent);
     }
 
+    /**
+     * Logs the given message with the log tag "TAG"
+     * @param s
+     */
     void log(String s) {
         Log.d(LOGTAG, s);
     }
